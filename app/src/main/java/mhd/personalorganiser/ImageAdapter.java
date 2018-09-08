@@ -15,10 +15,10 @@ import java.util.ArrayList;
  */
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
-    ArrayList<Bitmap> arrayListImages = new ArrayList<Bitmap>();
+    private ArrayList<Bitmap> arrayListImages;
 
     // Constructor
-    public ImageAdapter(Context c, ArrayList<Bitmap> arrayListImages) {
+    ImageAdapter(Context c, ArrayList<Bitmap> arrayListImages) {
         mContext = c;
         this.arrayListImages = arrayListImages;
     }

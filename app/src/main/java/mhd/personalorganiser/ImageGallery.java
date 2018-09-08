@@ -26,7 +26,7 @@ public class ImageGallery extends Activity {
         setContentView(R.layout.imagegallery);
 
 
-        int numOfImgs = 0;
+        int numOfImgs;
 
         numOfImgs = mydb.getNumberOfRows("tblPic");
 
@@ -36,14 +36,14 @@ public class ImageGallery extends Activity {
         arrayPics = mydb.getAllImages();
 //        arrayPicsID = mydb.getImagesIds();
 
-        ArrayList<Bitmap> arrayListImages = new ArrayList<Bitmap>();
+        ArrayList<Bitmap> arrayListImages = new ArrayList<>();
 
         for (int i = 0; i < numOfImgs; i++){
 
             arrayListImages.add(i, arrayPics[i]);
         }
 
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        GridView gridView = findViewById(R.id.gridView);
         gridView.setAdapter(new ImageAdapter(this, arrayListImages));
 
         gridView.setOnItemClickListener(new OnItemClickListener() {

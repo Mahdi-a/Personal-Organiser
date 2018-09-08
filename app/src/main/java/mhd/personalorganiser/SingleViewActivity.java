@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import java.util.Objects;
+
 
 /**
  * Created by Mahdi on 6/09/2015.
@@ -17,8 +19,6 @@ import android.widget.ImageView;
 public class SingleViewActivity extends Activity {
 
     private DatabaseHandler mydb = new DatabaseHandler(this);
-    private int[] ids;
-    private Bitmap[] imgs;
     private int idToDelete;
 
     @Override
@@ -30,17 +30,17 @@ public class SingleViewActivity extends Activity {
         Intent i = getIntent();
 
         //Get images Id
-        ids = mydb.getImagesIds();
+        int[] ids = mydb.getImagesIds();
 
         //Get images
-        imgs = mydb.getAllImages();
+        Bitmap[] imgs = mydb.getAllImages();
 
         // Selected image id
-        int position = i.getExtras().getInt("id");
+        int position = Objects.requireNonNull(i.getExtras()).getInt("id");
 
         idToDelete = ids[position];
 
-        ImageView imageView = (ImageView) findViewById(R.id.singleImage);
+        ImageView imageView = findViewById(R.id.singleImage);
         imageView.setImageBitmap(imgs[position]);
     }
 

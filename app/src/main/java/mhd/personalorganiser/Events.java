@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -26,12 +27,9 @@ public class Events extends Activity {
 
     private DatabaseHandler mydb;
 
-    private Button btnDelete;
-    private Button btnCancel;
-
     private Spinner spinnerFilterEvents;
 
-    private ArrayList<String > arrayEventsName = new ArrayList<String>();
+    private ArrayList<String > arrayEventsName = new ArrayList<>();
     private ArrayList arrayEventID = new ArrayList();
     private ArrayList arrayEvents;
 
@@ -45,16 +43,16 @@ public class Events extends Activity {
         String[] filter = {"All", "Past", "Future"};
 
         final ArrayAdapter<String> arrayAdapterFilter =
-                new ArrayAdapter<String>
+                new ArrayAdapter<>
                         (this, android.R.layout.simple_spinner_dropdown_item, filter);
 
-        spinnerFilterEvents = (Spinner) findViewById(R.id.spinnerFilterEvents);
+        spinnerFilterEvents = findViewById(R.id.spinnerFilterEvents);
         spinnerFilterEvents.setAdapter(arrayAdapterFilter);
 
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnDelete = (Button) findViewById(R.id.btnDeleteEvent);
+        Button btnCancel = findViewById(R.id.btnCancel);
+        Button btnDelete = findViewById(R.id.btnDeleteEvent);
 
-        eventList = (ListView)findViewById(R.id.listViewEvents);
+        eventList = findViewById(R.id.listViewEvents);
 
         mydb = new DatabaseHandler(this);
 
@@ -63,15 +61,10 @@ public class Events extends Activity {
         final ArrayAdapter arrayAdapterEvents;
 
         if ( mode != null){
-
-            arrayAdapterEvents =
-                    new ArrayAdapter
-                            (this, android.R.layout.simple_list_item_multiple_choice, arrayEventsName);
+            arrayAdapterEvents = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, arrayEventsName);
         }
         else{
-
-            arrayAdapterEvents =
-                    new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayEventsName);
+            arrayAdapterEvents = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayEventsName);
         }
 
         spinnerFilterEvents.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -135,7 +128,7 @@ public class Events extends Activity {
 
             eventList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             eventList.setAdapter(arrayAdapterEvents);
-            eventList.setChoiceMode(eventList.CHOICE_MODE_MULTIPLE);
+            eventList.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
         }
         else {
 
@@ -146,7 +139,7 @@ public class Events extends Activity {
             btnDelete.setVisibility(View.INVISIBLE);
 
             eventList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            eventList.setChoiceMode(eventList.CHOICE_MODE_SINGLE);
+            eventList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
             eventList.setAdapter(arrayAdapterEvents);
 

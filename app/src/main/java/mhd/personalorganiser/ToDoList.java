@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -32,7 +33,7 @@ public class ToDoList extends Activity {
     Spinner spinnerFilterTasks;
 
 
-    ArrayList<String> arrayTasksName = new ArrayList<String>();
+    ArrayList<String> arrayTasksName = new ArrayList<>();
     ArrayList arrayTasksID = new ArrayList();
     ArrayList arrayTasks;
 
@@ -47,17 +48,17 @@ public class ToDoList extends Activity {
         msgBox.setPositiveButton("OK", null);
 
         String[] filter = {"All", "Not Completed", "Completed"};
-        final ArrayAdapter<String > filterArrayAdapter =
-                new ArrayAdapter<String>
-                        (this, android.R.layout.simple_spinner_dropdown_item, filter);
+        final ArrayAdapter<String > filterArrayAdapter;
+        filterArrayAdapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_spinner_dropdown_item, filter);
 
-        spinnerFilterTasks = (Spinner) findViewById(R.id.spinnerFilter);
+        spinnerFilterTasks = findViewById(R.id.spinnerFilter);
         spinnerFilterTasks.setAdapter(filterArrayAdapter);
 
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnDelete = findViewById(R.id.btnDelete);
 
-        taskList = (ListView)findViewById(R.id.listViewTasks);
+        taskList = findViewById(R.id.listViewTasks);
 
         mydb = new DatabaseHandler(this);
 
@@ -129,7 +130,7 @@ public class ToDoList extends Activity {
 
             taskList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
             taskList.setAdapter(arrayAdapter);
-            taskList.setChoiceMode(taskList.CHOICE_MODE_MULTIPLE);
+            taskList.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 
         }
         else{
@@ -140,7 +141,7 @@ public class ToDoList extends Activity {
             btnDelete.setVisibility(View.INVISIBLE);
 
             taskList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            taskList.setChoiceMode(taskList.CHOICE_MODE_SINGLE);
+            taskList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
             taskList.setAdapter(arrayAdapter);
             taskList.setOnItemClickListener(new OnItemClickListener() {

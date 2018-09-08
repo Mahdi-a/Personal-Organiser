@@ -52,9 +52,7 @@ public class DisplayEvent extends Activity implements OnClickListener {
     EditText txtEventLocation;
 
     int idToUpdate = 0;
-
-
-
+    private int id;
 
 
     @Override
@@ -65,10 +63,10 @@ public class DisplayEvent extends Activity implements OnClickListener {
         eventDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
         eventTimeFormatter = new SimpleDateFormat("HH:mm", Locale.US);
 
-        txtEventName = (EditText) findViewById(R.id.txtEventName);
-        txtEventDate = (EditText) findViewById(R.id.txtEventDate);
-        txtEventTime = (EditText) findViewById(R.id.txtEventTime);
-        txtEventLocation = (EditText) findViewById(R.id.txtEventLocation);
+        txtEventName = findViewById(R.id.txtEventName);
+        txtEventDate = findViewById(R.id.txtEventDate);
+        txtEventTime = findViewById(R.id.txtEventTime);
+        txtEventLocation = findViewById(R.id.txtEventLocation);
 
         mydb = new DatabaseHandler(this);
 
@@ -89,13 +87,13 @@ public class DisplayEvent extends Activity implements OnClickListener {
                 rs.moveToFirst();
 
                 String eName =
-                        rs.getString(rs.getColumnIndex(mydb.TABLE_EVENT_NAME));
+                        rs.getString(rs.getColumnIndex(DatabaseHandler.TABLE_EVENT_NAME));
 
                 String eDate =
-                        rs.getString(rs.getColumnIndex(mydb.TABLE_EVENT_DATE_TIME));
+                        rs.getString(rs.getColumnIndex(DatabaseHandler.TABLE_EVENT_DATE_TIME));
 
                 String eLocation =
-                        rs.getString(rs.getColumnIndex(mydb.TABLE_EVENT_LOCATION));
+                        rs.getString(rs.getColumnIndex(DatabaseHandler.TABLE_EVENT_LOCATION));
 
                 String[] dateTime = eDate.split(" ");
 
@@ -107,22 +105,22 @@ public class DisplayEvent extends Activity implements OnClickListener {
                     rs.close();
                 }
 
-                Button save = (Button) findViewById(R.id.btnSave);
+                Button save = findViewById(R.id.btnSave);
                 save.setVisibility(View.INVISIBLE);
 
-                txtEventName.setText((CharSequence) eName);
+                txtEventName.setText(eName);
                 txtEventName.setFocusable(false);
                 txtEventName.setClickable(false);
 
-                txtEventDate.setText((CharSequence) eventDate);
+                txtEventDate.setText(eventDate);
                 txtEventDate.setFocusable(false);
                 txtEventDate.setClickable(false);
 
-                txtEventTime.setText((CharSequence) eventTime);
+                txtEventTime.setText(eventTime);
                 txtEventTime.setFocusable(false);
                 txtEventTime.setClickable(false);
 
-                txtEventLocation.setText((CharSequence) eLocation);
+                txtEventLocation.setText(eLocation);
                 txtEventLocation.setFocusable(false);
                 txtEventLocation.setClickable(false);
 
@@ -154,6 +152,7 @@ public class DisplayEvent extends Activity implements OnClickListener {
 
     @Override
     protected Dialog onCreateDialog(int id) {
+        this.id = id;
         switch (id) {
             case TIME_DIALOG_ID:
                 // set time picker as current time
@@ -169,7 +168,7 @@ public class DisplayEvent extends Activity implements OnClickListener {
         switch (item.getItemId()) {
             case R.id.editEvent:
 
-                Button save = (Button) findViewById(R.id.btnSave);
+                Button save = findViewById(R.id.btnSave);
                 save.setVisibility(View.VISIBLE);
 
                 setDateField();

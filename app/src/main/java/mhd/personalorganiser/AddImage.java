@@ -64,12 +64,8 @@ public class AddImage extends Activity implements OnClickListener {
                 imageView.buildDrawingCache();
                 Bitmap bitmap = imageView.getDrawingCache();
 
-                try {
-                    mydb.saveImage(bitmap);
-                    imageView.destroyDrawingCache();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                mydb.saveImage(bitmap);
+                imageView.destroyDrawingCache();
 
                 Intent intentImageGallery = new Intent(getApplicationContext(), ImageGallery.class);
                 startActivity(intentImageGallery);

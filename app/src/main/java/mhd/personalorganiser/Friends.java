@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,7 @@ public class Friends extends Activity {
     Button btnDelete;
     Button btnCancel;
 
-    ArrayList<String> arrayFriendsName = new ArrayList<String>();
+    ArrayList<String> arrayFriendsName = new ArrayList<>();
     ArrayList arrayFriendsID = new ArrayList();
 
     ListView list;
@@ -37,9 +38,9 @@ public class Friends extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friends);
 
-        btnCancel = (Button) findViewById(R.id.btnCancel);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
-        list = (ListView)findViewById(R.id.listViewFriends);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnDelete = findViewById(R.id.btnDelete);
+        list = findViewById(R.id.listViewFriends);
 
         mydb = new DatabaseHandler(this);
 
@@ -70,7 +71,7 @@ public class Friends extends Activity {
             list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
             list.setAdapter(arrayAdapter);
-            list.setChoiceMode(list.CHOICE_MODE_MULTIPLE);
+            list.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
 
         }
         else{
@@ -81,10 +82,9 @@ public class Friends extends Activity {
             btnDelete.setEnabled(false);
             btnDelete.setVisibility(View.INVISIBLE);
 
-            ArrayAdapter arrayAdapter =
-                    new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayFriendsName);
+            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayFriendsName);
 
-            list = (ListView)findViewById(R.id.listViewFriends);
+            list = findViewById(R.id.listViewFriends);
             list.setAdapter(arrayAdapter);
             list.setOnItemClickListener(new OnItemClickListener() {
                 @Override

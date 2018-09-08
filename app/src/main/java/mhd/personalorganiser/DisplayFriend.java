@@ -38,10 +38,6 @@ public class DisplayFriend extends Activity {
     private Button btnSave;
     private Button btnShowOnMap;
 
-    private String street;
-    private String suburb;
-    private String state;
-    private String country;
     private String completeAddress;
 
     @Override
@@ -52,23 +48,23 @@ public class DisplayFriend extends Activity {
 
         String[] genderValue = {"Male", "Female"};
         ArrayAdapter<String> stringArrayAdapter =
-                new ArrayAdapter<String>
+                new ArrayAdapter<>
                         (this, android.R.layout.simple_spinner_dropdown_item, genderValue);
 
-        spinnerGender = (Spinner)findViewById(R.id.spinnerGender);
+        spinnerGender = findViewById(R.id.spinnerGender);
         spinnerGender.setAdapter(stringArrayAdapter);
 
-        txtFirstName = (EditText) findViewById(R.id.txtFirstName);
-        txtLastName = (EditText) findViewById(R.id.txtLastName);
-        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
-        txtAge = (EditText) findViewById(R.id.txtAge);
-        txtStreet = (EditText) findViewById(R.id.txtStreet);
-        txtSuburb = (EditText) findViewById(R.id.txtSuburb);
-        txtState = (EditText) findViewById(R.id.txtState);
-        txtCountry = (EditText) findViewById(R.id.txtCountry);
+        txtFirstName = findViewById(R.id.txtFirstName);
+        txtLastName = findViewById(R.id.txtLastName);
+        spinnerGender = findViewById(R.id.spinnerGender);
+        txtAge = findViewById(R.id.txtAge);
+        txtStreet = findViewById(R.id.txtStreet);
+        txtSuburb = findViewById(R.id.txtSuburb);
+        txtState = findViewById(R.id.txtState);
+        txtCountry = findViewById(R.id.txtCountry);
 
-        btnShowOnMap = (Button) findViewById(R.id.btnShowOnMap);
-        btnSave = (Button) findViewById(R.id.btnSave);
+        btnShowOnMap = findViewById(R.id.btnShowOnMap);
+        btnSave = findViewById(R.id.btnSave);
 
         btnShowOnMap.setVisibility(View.INVISIBLE);
 
@@ -103,10 +99,10 @@ public class DisplayFriend extends Activity {
 
                 String[] address = add.split(",");
 
-                street = address[0];
-                suburb = address[1];
-                state = address[2];
-                country = address[3];
+                String street = address[0];
+                String suburb = address[1];
+                String state = address[2];
+                String country = address[3];
 
                 if (!rs.isClosed()){
                     rs.close();
@@ -116,11 +112,11 @@ public class DisplayFriend extends Activity {
                 btnShowOnMap.setVisibility(View.VISIBLE);
                 btnSave.setVisibility(View.INVISIBLE);
 
-                txtFirstName.setText((CharSequence) fname);
+                txtFirstName.setText(fname);
                 txtFirstName.setFocusable(false);
                 txtFirstName.setClickable(false);
 
-                txtLastName.setText((CharSequence) lname);
+                txtLastName.setText(lname);
                 txtLastName.setFocusable(false);
                 txtLastName.setClickable(false);
 
@@ -137,23 +133,23 @@ public class DisplayFriend extends Activity {
                 spinnerGender.setFocusable(false);
                 spinnerGender.setClickable(false);
 
-                txtAge.setText((CharSequence) age);
+                txtAge.setText(age);
                 txtAge.setFocusable(false);
                 txtAge.setClickable(false);
 
-                txtStreet.setText((CharSequence) street);
+                txtStreet.setText(street);
                 txtStreet.setFocusable(false);
                 txtStreet.setClickable(false);
 
-                txtSuburb.setText((CharSequence) suburb);
+                txtSuburb.setText(suburb);
                 txtSuburb.setFocusable(false);
                 txtSuburb.setClickable(false);
 
-                txtState.setText((CharSequence) state);
+                txtState.setText(state);
                 txtState.setFocusable(false);
                 txtState.setClickable(false);
 
-                txtCountry.setText((CharSequence) country);
+                txtCountry.setText(country);
                 txtCountry.setFocusable(false);
                 txtCountry.setClickable(false);
             }
@@ -272,7 +268,7 @@ public class DisplayFriend extends Activity {
                 if (mydb.updateFriend(idToUpdate, txtFirstName.getText().toString(),
                         txtLastName.getText().toString(),
                         spinnerGender.getSelectedItem().toString(),
-                        txtAge.getText().toString(), completeAddress.toString())) {
+                        txtAge.getText().toString(), completeAddress)) {
 
                     Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), Friends.class);
@@ -287,7 +283,7 @@ public class DisplayFriend extends Activity {
 
                 if (mydb.insertFriend(txtFirstName.getText().toString(), txtLastName.getText().toString(),
                         spinnerGender.getSelectedItem().toString(), txtAge.getText().toString(),
-                        completeAddress.toString())) {
+                        completeAddress)) {
 
                     Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
                 }
@@ -302,7 +298,7 @@ public class DisplayFriend extends Activity {
         }
     }
 
-    public String getAddress() {
+    public void getAddress() {
 
         StringBuilder sbAddress = new StringBuilder();
         String separator = ", ";
@@ -314,7 +310,6 @@ public class DisplayFriend extends Activity {
 
         completeAddress = sbAddress.toString();
 
-        return completeAddress;
     }
 
     public void showOnMap(View view){

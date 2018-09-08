@@ -35,15 +35,15 @@ public class DisplayTask extends Activity {
         String[] statusValue = {"Not Completed", "Completed"};
 
         ArrayAdapter<String> stringArrayAdapter =
-                new ArrayAdapter<String>
+                new ArrayAdapter<>
                         (this, android.R.layout.simple_spinner_dropdown_item, statusValue);
 
-        taskStatus = (Spinner) findViewById(R.id.spinnerStatus);
+        taskStatus = findViewById(R.id.spinnerStatus);
         taskStatus.setAdapter(stringArrayAdapter);
 
-        taskName = (EditText) findViewById(R.id.txtTaskName);
-        taskLocation = (EditText) findViewById(R.id.txtLocation);
-        taskStatus = (Spinner) findViewById(R.id.spinnerStatus);
+        taskName = findViewById(R.id.txtTaskName);
+        taskLocation = findViewById(R.id.txtLocation);
+        taskStatus = findViewById(R.id.spinnerStatus);
 
         mydb = new DatabaseHandler(this);
 
@@ -60,27 +60,27 @@ public class DisplayTask extends Activity {
                 rs.moveToFirst();
 
                 String tName =
-                        rs.getString(rs.getColumnIndex(mydb.TABLE_TASK_NAME));
+                        rs.getString(rs.getColumnIndex(DatabaseHandler.TABLE_TASK_NAME));
 
                 String tLocation =
-                        rs.getString(rs.getColumnIndex(mydb.TABLE_TASK_LOCATION));
+                        rs.getString(rs.getColumnIndex(DatabaseHandler.TABLE_TASK_LOCATION));
 
                 String tStatus =
-                        rs.getString(rs.getColumnIndex(mydb.TABLE_TASK_STATUS));
+                        rs.getString(rs.getColumnIndex(DatabaseHandler.TABLE_TASK_STATUS));
 
                 if ( !rs.isClosed() ){
 
                     rs.close();
                 }
 
-                Button save = (Button) findViewById(R.id.btnSave);
+                Button save = findViewById(R.id.btnSave);
                 save.setVisibility(View.INVISIBLE);
 
-                taskName.setText((CharSequence) tName);
+                taskName.setText(tName);
                 taskName.setFocusable(false);
                 taskName.setClickable(false);
 
-                taskLocation.setText((CharSequence) tLocation);
+                taskLocation.setText(tLocation);
                 taskLocation.setFocusable(false);
                 taskLocation.setClickable(false);
 
@@ -130,7 +130,7 @@ public class DisplayTask extends Activity {
 
             case R.id.editTask:
 
-                Button save = (Button) findViewById(R.id.btnSave);
+                Button save = findViewById(R.id.btnSave);
                 save.setVisibility(View.VISIBLE);
 
                 taskName.setEnabled(true);

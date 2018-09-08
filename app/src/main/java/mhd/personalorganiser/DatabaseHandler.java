@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,31 +21,31 @@ import java.util.Locale;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "AssignmentDatabase.db";
+    private static final String DATABASE_NAME = "AssignmentDatabase.db";
 
-    public static final String TABLE_FRIEND = "tblFriend";
-    public static final String TABLE_FRIEND_ID = "friendID";
+    private static final String TABLE_FRIEND = "tblFriend";
+    private static final String TABLE_FRIEND_ID = "friendID";
     public static final String TABLE_FRIEND_FN = "friendFN";
     public static final String TABLE_FRIEND_LN = "friendLN";
     public static final String TABLE_FRIEND_GENDER = "friendGender";
     public static final String TABLE_FRIEND_AGE = "friendAge";
     public static final String TABLE_FRIEND_ADDRESS = "friendAddress";
 
-    public static final String TABLE_TASK = "tblTask";
-    public static final String TABLE_TASK_ID = "taskID";
+    private static final String TABLE_TASK = "tblTask";
+    private static final String TABLE_TASK_ID = "taskID";
     public static final String TABLE_TASK_NAME = "taskName";
     public static final String TABLE_TASK_LOCATION = "taskLocation";
     public static final String TABLE_TASK_STATUS = "taskStatus";
 
-    public static final String TABLE_EVENT = "tblEvent";
-    public static final String TABLE_EVENT_ID = "eventID";
+    private static final String TABLE_EVENT = "tblEvent";
+    private static final String TABLE_EVENT_ID = "eventID";
     public static final String TABLE_EVENT_NAME = "eventName";
     public static final String TABLE_EVENT_DATE_TIME = "eventDateTime";
     public static final String TABLE_EVENT_LOCATION = "eventLocation";
 
-    public static final String TABLE_PIC = "tblPic";
-    public static final String TABLE_PIC_ID = "picID";
-    public static final String TABLE_PIC_IMAGE = "picImage";
+    private static final String TABLE_PIC = "tblPic";
+    private static final String TABLE_PIC_ID = "picID";
+    private static final String TABLE_PIC_IMAGE = "picImage";
 
 
 
@@ -152,18 +150,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase database = this.getReadableDatabase();
 
-        String tableName = table;
-        String columnID = tableID;
-
-        Cursor res = database.rawQuery("select * from "+tableName+" where "+columnID+"="+id+"", null);
-
-        return res;
+        return database.rawQuery("select * from "+ table +" where "+ tableID +"="+id+"", null);
     }
 
     public int getNumberOfRows( String tblName){
         SQLiteDatabase database = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(database, tblName );
-        return numRows;
+        return (int) DatabaseUtils.queryNumEntries(database, tblName );
     }
 
     public boolean updateFriend
@@ -251,20 +243,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public ArrayList<String> getAllFriends(){
 
-        ArrayList<String> arrayFriends = new ArrayList<String>();
+        ArrayList<String> arrayFriends;
+        arrayFriends = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
 
-        Cursor res = database.rawQuery("select * from tblFriend", null);
-        res.moveToFirst();
+        try (Cursor res = database.rawQuery("select * from tblFriend", null)) {
+            res.moveToFirst();
 
-        while ( res.isAfterLast() == false){
+            while (!res.isAfterLast()) {
 
-            arrayFriends.add(res.getString(res.getColumnIndex(TABLE_FRIEND_ID))+","+
-                    res.getString(res.getColumnIndex(TABLE_FRIEND_FN))+" "+
-                    res.getString(res.getColumnIndex(TABLE_FRIEND_LN)));
+                arrayFriends.add(res.getString(res.getColumnIndex(TABLE_FRIEND_ID)) + "," +
+                        res.getString(res.getColumnIndex(TABLE_FRIEND_FN)) + " " +
+                        res.getString(res.getColumnIndex(TABLE_FRIEND_LN)));
 
-            res.moveToNext();
+                res.moveToNext();
+            }
         }
 
         return arrayFriends;
@@ -273,37 +267,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public ArrayList<String> filterTasks(String filter){
 
-        ArrayList<String> arrayTasks = new ArrayList<String>();
+        ArrayList<String> arrayTasks = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
 
-        String[] status = {filter.toString()};
+        String[] status = {filter};
 
-        if ( filter.toString().equals("All")){
+        if (filter.equals("All")){
 
-            Cursor res = database.rawQuery( "select * from tblTask", null);
-            res.moveToFirst();
+            try (Cursor res = database.rawQuery("select * from tblTask", null)) {
+                res.moveToFirst();
 
-            while ( res.isAfterLast() == false ){
+                while (!res.isAfterLast()) {
 
-                arrayTasks.add(res.getString(res.getColumnIndex(TABLE_TASK_ID))+","+
-                        res.getString(res.getColumnIndex(TABLE_TASK_NAME))+" - "+
-                        res.getString(res.getColumnIndex(TABLE_TASK_STATUS)));
+                    arrayTasks.add(res.getString(res.getColumnIndex(TABLE_TASK_ID)) + "," +
+                            res.getString(res.getColumnIndex(TABLE_TASK_NAME)) + " - " +
+                            res.getString(res.getColumnIndex(TABLE_TASK_STATUS)));
 
-                res.moveToNext();
+                    res.moveToNext();
+                }
             }
         }
         else {
-            Cursor res = database.rawQuery("select * from tblTask WHERE taskStatus =?", status);
-            res.moveToFirst();
+            try (Cursor res = database.rawQuery("select * from tblTask WHERE taskStatus =?", status)) {
+                res.moveToFirst();
 
-            while (res.isAfterLast() == false) {
+                while (!res.isAfterLast()) {
 
-                arrayTasks.add(res.getString(res.getColumnIndex(TABLE_TASK_ID)) + "," +
-                        res.getString(res.getColumnIndex(TABLE_TASK_NAME)) + " - " +
-                        res.getString(res.getColumnIndex(TABLE_TASK_STATUS)));
+                    arrayTasks.add(res.getString(res.getColumnIndex(TABLE_TASK_ID)) + "," +
+                            res.getString(res.getColumnIndex(TABLE_TASK_NAME)) + " - " +
+                            res.getString(res.getColumnIndex(TABLE_TASK_STATUS)));
 
-                res.moveToNext();
+                    res.moveToNext();
+                }
             }
         }
 
@@ -314,7 +310,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SimpleDateFormat myDateFormat;
 
-        ArrayList<String> arrayEvents = new ArrayList<String>();
+        ArrayList<String> arrayEvents = new ArrayList<>();
 
         SQLiteDatabase database = this.getReadableDatabase();
 
@@ -326,52 +322,55 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         String[] date = {todayDate};
 
-        if ( filter.toString().equals("All")){
+        if (filter.equals("All")){
 
-            Cursor res = database.rawQuery( "select * from tblEvent", null);
-            res.moveToFirst();
+            try (Cursor res = database.rawQuery("select * from tblEvent", null)) {
+                res.moveToFirst();
 
-            while ( res.isAfterLast() == false ){
+                while (!res.isAfterLast()) {
 
-                arrayEvents.add(res.getString(res.getColumnIndex(TABLE_EVENT_ID))+","+
-                        res.getString(res.getColumnIndex(TABLE_EVENT_NAME))+" - "+
-                        res.getString(res.getColumnIndex(TABLE_EVENT_DATE_TIME)));
+                    arrayEvents.add(res.getString(res.getColumnIndex(TABLE_EVENT_ID)) + "," +
+                            res.getString(res.getColumnIndex(TABLE_EVENT_NAME)) + " - " +
+                            res.getString(res.getColumnIndex(TABLE_EVENT_DATE_TIME)));
 
-                res.moveToNext();
+                    res.moveToNext();
+                }
             }
         }
-        if (filter.toString().equals("Future")) {
-            Cursor res = database.rawQuery("select * from tblEvent WHERE eventDateTime >=?", date);
-            res.moveToFirst();
+        if (filter.equals("Future")) {
+            try (Cursor res = database.rawQuery("select * from tblEvent WHERE eventDateTime >=?", date)) {
+                res.moveToFirst();
 
-            while (res.isAfterLast() == false) {
+                while (!res.isAfterLast()) {
 
-                arrayEvents.add(res.getString(res.getColumnIndex(TABLE_EVENT_ID)) + "," +
-                        res.getString(res.getColumnIndex(TABLE_EVENT_NAME)) + " - " +
-                        res.getString(res.getColumnIndex(TABLE_EVENT_DATE_TIME)));
+                    arrayEvents.add(res.getString(res.getColumnIndex(TABLE_EVENT_ID)) + "," +
+                            res.getString(res.getColumnIndex(TABLE_EVENT_NAME)) + " - " +
+                            res.getString(res.getColumnIndex(TABLE_EVENT_DATE_TIME)));
 
-                res.moveToNext();
+                    res.moveToNext();
+                }
             }
         }
 
-        if (filter.toString().equals("Past")) {
-            Cursor res = database.rawQuery("select * from tblEvent WHERE eventDateTime <?", date);
-            res.moveToFirst();
+        if (filter.equals("Past")) {
+            try (Cursor res = database.rawQuery("select * from tblEvent WHERE eventDateTime <?", date)) {
+                res.moveToFirst();
 
-            while (res.isAfterLast() == false) {
+                while (!res.isAfterLast()) {
 
-                arrayEvents.add(res.getString(res.getColumnIndex(TABLE_EVENT_ID)) + "," +
-                        res.getString(res.getColumnIndex(TABLE_EVENT_NAME)) + " - " +
-                        res.getString(res.getColumnIndex(TABLE_EVENT_DATE_TIME)));
+                    arrayEvents.add(res.getString(res.getColumnIndex(TABLE_EVENT_ID)) + "," +
+                            res.getString(res.getColumnIndex(TABLE_EVENT_NAME)) + " - " +
+                            res.getString(res.getColumnIndex(TABLE_EVENT_DATE_TIME)));
 
-                res.moveToNext();
+                    res.moveToNext();
+                }
             }
         }
 
         return arrayEvents;
     }
 
-    public boolean saveImage(Bitmap bitmap) throws IOException {
+    public void saveImage(Bitmap bitmap) {
 
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -382,7 +381,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         database.insert(TABLE_PIC, null, contentValues);
 
-        return true;
     }
 
     public Bitmap[] getAllImages(){
@@ -413,12 +411,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase database = this.getReadableDatabase();
 
-        Cursor res = database.rawQuery("select * from tblPic", null);
-        res.moveToFirst();
+        try (Cursor res = database.rawQuery("select * from tblPic", null)) {
+            res.moveToFirst();
 
-        for (int i = 0; i < numRows; i++){
-            allImagesIds[i] = res.getInt(res.getColumnIndex(TABLE_PIC_ID));
-            res.moveToNext();
+            for (int i = 0; i < numRows; i++) {
+                allImagesIds[i] = res.getInt(res.getColumnIndex(TABLE_PIC_ID));
+                res.moveToNext();
+            }
         }
 
         return allImagesIds;
@@ -435,7 +434,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     //Converting byte[] to an image file
-    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+    private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
