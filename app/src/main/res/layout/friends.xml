@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Friends"
+        android:id="@+id/lblFriends"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:id="@+id/listViewFriends"
+        android:layout_gravity="center_horizontal"
+        android:longClickable="false"
+        android:choiceMode="multipleChoiceModal"
+        android:scrollY="@dimen/activity_vertical_margin" />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDelete"
+            android:text="Delete"
+            android:onClick="delete"
+            android:padding="5dp"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:text="Cancel"
+            android:onClick="cancel"
+            android:padding="5dp"
+            android:textAlignment="center"
+             />
+
+    </TableRow>
+
+</LinearLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Tasks"
+        android:id="@+id/lblTasks"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Show:"
+            android:id="@+id/lblShow"
+            android:layout_marginLeft="10dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"/>
+
+
+    </TableRow>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:id="@+id/listViewTasks"
+        android:layout_gravity="center_horizontal"
+        android:stackFromBottom="false" />
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:transitionGroup="false">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnDelete"
+            android:text="Delete"
+            android:onClick="delete"
+            android:padding="5dp"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:text="Cancel"
+            android:onClick="cancel"
+            android:padding="5dp"
+            android:textAlignment="center"
+            />
+
+    </TableRow>
+    
+</LinearLayout>

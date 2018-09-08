@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".DisplayEvent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:id="@+id/lblEventName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/txtEventName"
+            android:text="Event Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical" />
+
+        <EditText
+            android:id="@+id/txtEventName"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="90dp"
+            android:ems="10"
+            android:inputType="text">
+        </EditText>
+
+        <TextView
+            android:id="@+id/lblEventDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblEventName"
+            android:layout_alignBottom="@+id/txtEventDate"
+            android:layout_alignLeft="@+id/lblEventName"
+            android:text="Date"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical" />
+
+        <EditText
+            android:id="@+id/txtEventDate"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtEventName"
+            android:layout_below="@+id/txtEventName"
+            android:ems="10"
+            android:inputType="date"/>
+
+        <TextView
+            android:id="@+id/lblEventTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblEventDate"
+            android:layout_alignBottom="@+id/txtEventTime"
+            android:layout_alignLeft="@+id/lblEventName"
+            android:text="Time"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical" />
+
+        <EditText
+            android:id="@+id/txtEventTime"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/txtEventName"
+            android:layout_below="@+id/txtEventDate"
+            android:ems="10"
+            android:gravity="bottom"
+            android:inputType="time"/>
+
+        <TextView
+        android:id="@+id/lblEventLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblEventTime"
+        android:layout_alignLeft="@+id/lblEventName"
+        android:text="Location"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignBottom="@+id/txtEventLocation" />
+
+        <EditText
+        android:id="@+id/txtEventLocation"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtEventName"
+        android:layout_below="@+id/txtEventTime"
+        android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:onClick="run"
+            android:text="Save"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</LinearLayout>

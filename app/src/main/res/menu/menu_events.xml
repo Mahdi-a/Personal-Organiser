@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/newEvent"
+        android:title="New Event"
+        android:orderInCategory="100"/>
+
+    <item
+        android:id="@+id/menuEditEventList"
+        android:title="Edit List"
+        android:orderInCategory="200"
+        />
+
+    <item
+        android:id="@+id/menuFriends"
+        android:title="Friends"
+        android:orderInCategory="300"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuToDoList"
+        android:title="Tasks"
+        android:orderInCategory="400"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuGallery"
+        android:title="Image Gallery"
+        android:orderInCategory="500"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/menuHome"
+        android:title="Home"
+        android:orderInCategory="600"/>
+
+</menu>
